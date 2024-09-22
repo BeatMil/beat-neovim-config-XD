@@ -1,0 +1,209 @@
+print("init.lua activated!")
+
+-- -- import beat.lua then check then call trashTalk() WOW >W<
+-- local ok, mymod = pcall(require, 'beat')
+-- if not ok then
+--     print("Module had an error")
+-- else
+-- --    spawnWindow()
+-- end
+
+-- vim plug
+--local vim = vim --huh??
+-- local Plug = vim.fn['plug#']
+-- vim.call('plug#begin')
+-- Plug('tpope/vim-surround')
+-- Plug('junegunn/vim-easy-align')
+-- Plug('vim-airline/vim-airline')
+-- Plug('vim-airline/vim-airline-themes')
+-- Plug('navarasu/onedark.nvim')
+-- Plug('tpope/vim-commentary')
+-- Plug('junegunn/fzf', { ['do'] = function()
+--     vim.fn['fzf#install']()
+-- end })
+-- Plug('junegunn/fzf.vim')
+
+-- Plug('tpope/vim-fugitive')
+-- -- harpoon
+-- Plug('nvim-lua/plenary.nvim')
+-- Plug('ThePrimeagen/harpoon', { ['branch'] = 'harpoon2' })
+
+-- -- autocomplete
+-- Plug('neoclide/coc.nvim', {['branch']= 'release'})
+-- Plug('neovim/nvim-lspconfig')
+-- -- Plug('hrsh7th/nvim-cmp')
+-- -- Plug('hrsh7th/cmp-nvim-lsp')
+-- -- Plug('saadparwaiz1/cmp_luasnip')
+-- -- Plug('L3MON4D3/LuaSnip')
+
+
+-- vim.call('plug#end')
+
+-- packer
+return require('packer').startup(function(use)
+	use 'wbthomason/packer.nvim'
+end)
+
+
+
+
+-- python autocomplete
+--require'lspconfig'.pyright.setup{}
+
+
+-- gdscript godot lsp nvim
+-- require'lspconfig'.gdscript.setup{
+--     cmd = { "nc", "127.0.0.1", "6005" },
+--     filetypes = { "gd", "gdscript", "gdscript3" },
+--     root_dir = nvim_lsp.util.root_pattern("project.godot", ".git"),
+--     flags = {
+--         debounce_text_changes = 150,
+--     },
+-- }
+
+
+---- Normal config
+------ set colorscheme
+--require('onedark').setup {
+----    'dark', 'darker', 'cool', 'deep', 'warm', 'warmer'
+--    style = 'cool',
+--    transparent = true,
+--}
+--require('onedark').load()
+------- Reference
+----vim.cmd.highlight({ "Normal", "guibg=NONE", "ctermbg=NONE" })
+----vim.cmd.highlight({ "EndOfBuffer", "guibg=NONE"})
+
+
+---- migrating XD
+vim.cmd([[
+    set nu
+    set rnu
+    set noswapfile
+    set nobackup
+    set foldmethod=indent
+    set signcolumn=yes
+    set colorcolumn=80
+    set tabstop=4 shiftwidth=4 expandtab
+    set mouse=a
+    set signcolumn=yes
+    set colorcolumn=80
+    set updatetime=300
+]])
+
+-- Mappings
+---- leader desu
+vim.g.mapleader = ' '
+---- cursor navigation
+vim.keymap.set('n', 'L', '$')
+vim.keymap.set('n', 'H', '0')
+vim.keymap.set('v', 'L', '$')
+vim.keymap.set('v', 'H', '0')
+vim.keymap.set('i', 'jk', '<esc>')
+
+---- save, close, discard changes
+vim.keymap.set('n', '<leader>w', function() vim.cmd("w") end)
+vim.keymap.set('n', '<leader>q', function() vim.cmd("q!") end)
+vim.keymap.set('n', '<leader>e', function() vim.cmd("e!") end)
+vim.keymap.set('n', '<leader>a', function() vim.cmd("q") end)
+
+---- screen navigation
+vim.keymap.set('n', '<leader>l', '<c-w>l')
+vim.keymap.set('n', '<leader>h', '<c-w>h')
+vim.keymap.set('n', '<leader>k', '<c-w>k')
+vim.keymap.set('n', '<leader>j', '<c-w>j')
+
+---- buffer navigation
+vim.keymap.set('n', '^', '<c-^>')
+
+---- open init.lua, source init.lua
+vim.keymap.set('n', '<leader>se', function() vim.cmd.vsplit('~/AppData/Local/nvim/init.lua')end)
+vim.keymap.set('n', '<leader>sv', function() vim.cmd.source('~/AppData/Local/nvim/init.lua')end)
+
+---- Vim Plug binds 
+vim.keymap.set('n', '<leader>si', function() vim.cmd('PlugInstall')end)
+vim.keymap.set('n', '<leader>sc', function() vim.cmd('PlugClean')end)
+
+---- fzf mappings
+vim.keymap.set('n', '<leader>th', function() vim.cmd('Files')end)
+vim.keymap.set('n', '<leader>tm', function() vim.cmd('Buffers')end)
+vim.keymap.set('n', '<leader>tc', function() vim.cmd('Colors')end)
+
+
+-- ---- harpoon mappings
+local harpoon = require("harpoon")
+
+-- REQUIRED
+harpoon:setup()
+-- REQUIRED
+
+vim.keymap.set("n", "<leader>.", function() harpoon:list():add() end)
+vim.keymap.set("n", "<leader>p", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
+vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
+vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
+
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+
+
+---- Vimgrep search files
+vim.keymap.set('n', '<leader>f', ':vimgrep//**<left><left><left>')
+
+---- Change variable name
+vim.keymap.set('n', '<leader>rr', ':%s/<c-r><c-w>//g<left><left>')
+
+---- Fugivite Mappings
+vim.keymap.set('n', '<leader>gg', function() vim.cmd('Git')end)
+
+---- Terminal Mappings
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+
+
+--
+-- Ends (Mappings)
+
+
+-- Add numbered movement to jump list
+vim.cmd([[
+    nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+    nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+]])
+
+---- file type specifics
+---- with group
+-- local beat_group = vim.api.nvim_create_augroup('beat_group', { clear = true })
+-- vim.api.nvim_create_autocmd({'FileType'}, {
+--     pattern = 'lua',
+--     group = beat_group,
+--     command = 'iabbrev prc print("▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦")',
+-- })
+
+
+-- Airline configs
+vim.g.airline_section_z = 'o(> <)o'
+vim.g.airline_section_c = '%t'
+
+--vim.api.nvim_create_autocmd("FileType", {
+--    pattern = "lua",
+--    callback = function(args)
+----        vim.keymap.set('n', '<Leader>0', function() print("TESTDESU") end, { buffer = true })
+--        vim.cmd('iabbrev prc print("▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦")', { buffer = true})
+--    end
+--})
+
+
+---- Coc Config
+local keyset = vim.keymap.set
+local opts = {silent = true, noremap = true, expr = true, replace_keycodes = false}
+-- Make <CR> to accept selected completion item or notify coc.nvim to format
+-- <C-g>u breaks current undo, please make your own choice
+keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
+
+--TEST
+-- vim.keymap.set('n', '<leader>0', function() spawnWindow() end)
+
+print("Haiii ~ ()> ///<)~")

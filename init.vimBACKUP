@@ -1,0 +1,224 @@
+" init
+call plug#begin('~/.config/nvim')
+
+Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'morhetz/gruvbox'
+Plug 'navarasu/onedark.nvim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+Plug 'unblevable/quick-scope'
+Plug 'junegunn/goyo.vim'
+Plug 'simnalamburt/vim-mundo'
+Plug 'psliwka/vim-smoothie' "smooth scroll
+Plug 'cespare/vim-toml'
+Plug 'habamax/vim-godot'
+" Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+" Plug 'prabirshrestha/vim-lsp'
+Plug 'nvim-lua/plenary.nvim' " don't forget to add this one if you don't have it yet!
+Plug 'ThePrimeagen/harpoon'
+
+
+call plug#end()
+
+se nu
+se rnu
+set hidden
+set foldmethod=indent
+set clipboard^=unnamedplus
+set tabstop=4 shiftwidth=4 expandtab
+set mouse=a
+set signcolumn=yes
+set colorcolumn=80
+set noswapfile
+set nobackup
+set updatetime=300
+set ignorecase
+inoremap jk <esc>
+let mapleader=" "
+nnoremap <leader>q :echom "nooo !(＞﹏＜ !)"<cr>
+nnoremap <leader>a :q!<cr>
+nnoremap <leader>w :w<cr>
+nnoremap <leader>ss :e!<cr>
+nnoremap <leader>se :vsplit ~/AppData/Local/nvim/init.vim<cr><c-w>H
+nnoremap <leader>sv :source ~/AppData/Local/nvim/init.vim<cr>
+nnoremap <leader>si :PlugInstall<cr>
+nnoremap <leader>sc :PlugClean<cr>
+noremap L $
+noremap H 0
+
+augroup filetype_beat
+    autocmd!
+    autocmd FileType python nnoremap <buffer> <leader>rc :!python3 %<cr>
+    autocmd FileType python vnoremap <leader>p yiprint(f"<esc>ea: {<esc>pa}")<esc>
+    autocmd FileType gdscript vnoremap <leader>p yiprint("<esc>ea: %s"<esc>a%[])<esc><left><left>p<esc>
+    autocmd FileType vyper nnoremap <buffer> <leader>rc :!vyper %<cr>
+    autocmd FileType cpp nnoremap <buffer> <leader>rc :!g++ %; ./a.out<cr>
+augroup END
+
+
+" nnoremap <leader>t :Files<cr>
+" nnoremap <leader>b :Buffers<cr>
+nnoremap ^ <c-^>
+nnoremap <leader>l <c-w>l
+nnoremap <leader>h <c-w>h
+nnoremap <leader>k <c-w>k
+nnoremap <leader>j <c-w>j
+nnoremap <leader><BS> zA
+nnoremap zv zR
+nnoremap zm zM
+nnoremap zR zr 
+nnoremap zM zm 
+nnoremap Y 0y$
+nnoremap g. :!<cr>
+nnoremap <leader>f :vimgrep//**<left><left><left>
+" nnoremap <leader>oeu <cmd>:Lex<cr> <cmd>vertical resize -60<cr><c-w>l
+nnoremap <leader>oeu <cmd>:vs noname<cr><cmd>vertical resize -90<cr><c-w>l
+nnoremap <leader>e :e!<cr>
+nnoremap gn gT
+
+"copen
+nnoremap <leader>co :copen<cr>
+nnoremap <leader>ci :cnext<cr>
+nnoremap <leader>cp :cprevious<cr>
+
+onoremap inn :<c-u>normal! f(vi(<cr>
+let airline_theme="deus"
+colorscheme onedark
+" colorscheme molokai
+let g:airline#extensions#whitespace#enabled = 0
+
+" Color bug jahy wallpaper
+hi Normal guibg=NONE ctermbg=NONE
+" fix jahy disappear
+" hi Comment guibg=#31353f
+hi Comment guibg=NONE
+hi EndOfBuffer guibg=none
+
+echom("Haiii ~ ()> ///<)~")
+
+" Find files using Telescope command-line sugar.
+" nnoremap <leader>tt <cmd>Telescope find_files<cr>
+nnoremap <leader>th <cmd>:Files<cr>
+nnoremap <leader>tm <cmd>:Buffers<cr>
+nnoremap <leader>tc <cmd>:Colors<cr>
+nnoremap <leader>tb <cmd>:MundoToggle<cr>
+nnoremap <leader>rr :%s/<c-r><c-w>//g<left><left>
+" nnoremap <leader>tg <cmd>Telescope git_files<cr>
+" nnoremap <leader>th <cmd>Telescope help_tags<cr>
+noremap ë :resize +6<cr>
+noremap ê :resize -6<cr>
+noremap <M-k> :resize +6<cr>
+noremap <M-j> :resize -6<cr>
+noremap ˚ :resize +6<cr>
+noremap ∆ :resize -6<cr>
+
+
+" Vertical resize
+noremap <M-l> :vertical resize +6<cr>
+noremap <M-h> :vertical resize -6<cr>
+
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" smooth scroll off
+let g:smoothie_enabled=0
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+
+endif
+
+" rebind accept suggestion to <c-e>
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "\<TAB>"
+
+
+" Harpoon
+nnoremap <leader>. :lua require("harpoon.mark").add_file()<cr>
+nnoremap <leader>p :lua require("harpoon.ui").toggle_quick_menu()<cr>
+nnoremap <c-h> :lua require("harpoon.ui").nav_file(1)<cr>:echom "(人^▽')～☆ 1"<cr>
+nnoremap <c-t> :lua require("harpoon.ui").nav_file(2)<cr>:echom "(人^▽')～☆ 2"<cr>
+nnoremap <c-n> :lua require("harpoon.ui").nav_file(3)<cr>:echom "(人^▽')～☆ 3"<cr>
+nnoremap <leader>uh :lua require("harpoon.ui").nav_file(4)<cr>:echom "(人^▽')～☆ 4"<cr>
+nnoremap <leader>ut :lua require("harpoon.ui").nav_file(5)<cr>:echom "(人^▽')～☆ 5"<cr>
+nnoremap <leader>un :lua require("harpoon.ui").nav_file(6)<cr>:echom "(人^▽')～☆ 6"<cr>
+nnoremap <leader>us :lua require("harpoon.ui").nav_file(7)<cr>:echom "(人^▽')～☆ 7"<cr>
+nnoremap <leader>um :lua require("harpoon.ui").nav_file(8)<cr>:echom "(人^▽')～☆ 8"<cr>
+nnoremap <leader>ug :lua require("harpoon.ui").nav_file(9)<cr>:echom "(人^▽')～☆ 9"<cr>
+nnoremap <leader>uc :lua require("harpoon.ui").nav_file(10)<cr>:echom "(人^▽')～☆ 10"<cr>
+nnoremap <leader>ur :lua require("harpoon.ui").nav_file(11)<cr>:echom "(人^▽')～☆ 11"<cr>
+nnoremap <leader>ul :lua require("harpoon.ui").nav_file(12)<cr>:echom "(人^▽')～☆ 12"<cr>
+nnoremap <leader>u= :lua require("harpoon.ui").nav_file(13)<cr>:echom "(人^▽')～☆ 13"<cr>
+
+
+"Fugitive
+nnoremap <leader>gg :G<cr>
+nnoremap <leader>gn ]c
+nnoremap <leader>gp [c
+
+let g:rainbow_active = 1
+
+" airline config
+" let g:airline_section_z = 'o(>ω<)o'
+let g:airline_section_z = 'o(> <)o'
+let g:airline_section_c = '%t'
+
+
+" highlight Beacon ctermbg=120
+" highlight Beacon ctermbg=None
+" let g:beacon_minimal_jump = 0
+
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+autocmd FileType vyper setlocal commentstring=#\ %s
+
+iabbrev pr print("
+iabbrev anim ∑d(°∀°d)
+iabbrev anim2 (๑˃ᴗ˂)ﻭ
+iabbrev anim3 (♡˙︶˙♡)
+iabbrev anim4 凸(`△´＃)
+iabbrev anim5 (っ˘̩╭╮˘̩)っ
+iabbrev anim6 ┐(￣～￣)┌
+iabbrev prc print("▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦▦")
+
+
+
+"Add numbered movement to jump list
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> <leader>nn <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>nt <Plug>(coc-diagnostic-next)
+
+" Show description hover
+nmap <silent> <leader>, :call CocActionAsync('doHover')<CR>
+
+" terminal map
+tnoremap <Esc> <C-\><C-n>
+
+
+" learn lua
+
+lua << EOF
+  local tbl = {1, 2, 3, "bob", "in", "T8", "please"}
+  for k, v in ipairs(tbl) do
+    print(v)
+  end
+EOF
