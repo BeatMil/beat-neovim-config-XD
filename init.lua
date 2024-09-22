@@ -1,7 +1,6 @@
 print("init.lua new")
 
 
-
 -- Fast travel XD (gf it!)
 ---- plugin\telescope_mapping.lua
 ---- plugin\beat.lua
@@ -108,7 +107,6 @@ local plugins = {
 			})
 		end
 	},
-
 
 	------ snippets
 	{'hrsh7th/vim-vsnip'},
@@ -241,7 +239,6 @@ require('onedark').load()
 require('gitsigns').setup()
 
 
-
 -- require('tokyonight').load()
 ------- Reference
 ----vim.cmd.highlight({ "Normal", "guibg=NONE", "ctermbg=NONE" })
@@ -262,7 +259,6 @@ configs.setup({
 	highlight = { enable = true },
 	indent = { enable = true },
 })
-
 
 
 -- More config from kickstart nvim
@@ -324,7 +320,6 @@ vim.keymap.set('n', '<leader>sv', function() vim.cmd.source('~/AppData/Local/nvi
 -- vim.keymap.set('n', '<leader>th', function() vim.cmd('Files')end)
 -- vim.keymap.set('n', '<leader>tm', function() vim.cmd('Buffers')end)
 -- vim.keymap.set('n', '<leader>tc', function() vim.cmd('Colors')end)
-
 
 
 ---- harpoon mappings
@@ -393,8 +388,6 @@ vim.cmd([[
 
 ---- man I wanna use lua lsp but it's not working...
 -- vim.cmd('CocDisable')
-
-
 
 
 -- trim trailing whitespace
