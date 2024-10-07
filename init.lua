@@ -3,6 +3,7 @@ print("init.lua new")
 
 -- Fast travel XD (gf it!)
 ---- plugin\telescope_mapping.lua
+---- plugin\mappings.lua
 ---- plugin\beat.lua
 ---- plugin\neovide_beat.lua
 ---- plugin\comfy.lua
@@ -73,12 +74,12 @@ local plugins = {
 	{'nvim-tree/nvim-tree.lua'},
 
 	----Language server manager
-	-- {
-	-- 	'williamboman/mason.nvim'
-	-- },
-	-- {
-	-- 	'williamboman/mason-lspconfig.nvim'
-	-- },
+	{
+		'williamboman/mason.nvim'
+	},
+	{
+		'williamboman/mason-lspconfig.nvim'
+	},
 	{
 		'neovim/nvim-lspconfig',
 		config=function()
@@ -105,6 +106,7 @@ local plugins = {
 					},
 				},
 			})
+			lspconfig.emmet_ls.setup({})
 		end
 	},
 
@@ -147,7 +149,7 @@ local plugins = {
 	-- {'neoclide/coc.nvim', branch = 'release', enable = false},
 
 	---- AI Codium
-	{'Exafunction/codeium.vim'},
+	-- {'Exafunction/codeium.vim'},
 
 	---- terminal
 	-- {'akinsho/toggleterm.nvim', version = "*", config = true},
@@ -224,7 +226,7 @@ require('lualine').setup({})
 
 
 -- Neovim tree
--- require("nvim-tree").setup()
+require("nvim-tree").setup()
 
 
 -- Customized
@@ -248,8 +250,8 @@ vim.g.airline_theme = 'onedark'
 
 
 -- Mason Setup
--- require("mason").setup()
--- require("mason-lspconfig").setup()
+require("mason").setup()
+require("mason-lspconfig").setup()
 
 
 ---- treesitter config
@@ -405,6 +407,7 @@ command! TrimWhitespace call TrimWhitespace()
 vim.cmd([[
 	autocmd FileType python vnoremap <leader>p yiprint(f"<esc>ea: {<esc>pa}")<esc>
 	autocmd FileType gdscript vnoremap <leader>p yiprint(f"<esc>ea: {<esc>pa}")<esc>
+	autocmd FileType lua nnoremap <leader>rc :luafile %<cr>
 ]])
 
 -- Random maps
@@ -416,6 +419,8 @@ vim.keymap.set('n', '<leader>98', function ()
 		vim.g.neovide_fullscreen = 1
 	end
 end)
+
+vim.keymap.set('n', '<leader>91', ':let g:neovide_scale_factor=')
 
 
 if vim.g.neovide then
@@ -435,4 +440,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 
 -- Disable Codium
-vim.cmd("CodeiumDisable")
+-- vim.cmd("CodeiumDisable")
