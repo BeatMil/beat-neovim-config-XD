@@ -2,13 +2,13 @@ print("init.lua new")
 
 
 -- Fast travel XD (gf it!)
----- plugin\telescope_mapping.lua
----- plugin\mappings.lua
----- plugin\beat.lua
----- plugin\neovide_beat.lua
----- plugin\comfy.lua
----- plugin\emoji.lua
----- after\ftplugin\gdscript.lua
+---- plugin/telescope_mapping.lua
+---- plugin/mappings.lua
+---- plugin/beat.lua
+---- plugin/neovide_beat.lua
+---- plugin/comfy.lua
+---- plugin/emoji.lua
+---- after/ftplugin/gdscript.lua
 
 
 -- Lazy package manager
@@ -87,6 +87,18 @@ local plugins = {
 
 			lspconfig.gdscript.setup({})
 			lspconfig.pyright.setup({})
+			lspconfig.pylsp.setup{
+				settings = {
+					pylsp = {
+						plugins = {
+							pycodestyle = {
+								ignore = {'W391'},
+								maxLineLength = 100
+							}
+						}
+					}
+				}
+			}
 
 			--Enable (broadcasting) snippet capability for completion
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -311,8 +323,8 @@ vim.keymap.set('n', '<leader>j', '<c-w>j')
 vim.keymap.set('n', '^', '<c-^>')
 
 ---- open init.lua, source init.lua
-vim.keymap.set('n', '<leader>se', function() vim.cmd.vsplit('~/AppData/Local/nvim/init.lua')end)
-vim.keymap.set('n', '<leader>sv', function() vim.cmd.source('~/AppData/Local/nvim/init.lua')end)
+vim.keymap.set('n', '<leader>se', function() vim.cmd.vsplit('~/.config/nvim/init.lua')end)
+vim.keymap.set('n', '<leader>sv', function() vim.cmd.source('~/.config/nvim/init.lua')end)
 
 ---- Package manager binds
 -- vim.keymap.set('n', '<leader>si', function() vim.cmd('PackerInstall')end)
