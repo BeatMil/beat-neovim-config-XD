@@ -103,6 +103,6 @@ function Activate_godot_lsp ()
 	})
 end
 
-vim.keymap.set('n', '<leader>9', function() Activate_godot_lsp() end)
+-- vim.keymap.set('n', '<leader>9', function() Activate_godot_lsp() end)
 
 
