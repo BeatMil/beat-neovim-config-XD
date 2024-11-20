@@ -301,7 +301,7 @@ vim.keymap.set('i', 'jk', '<esc>')
 vim.keymap.set('n', '<leader>w', function() vim.cmd("w") end)
 vim.keymap.set('n', '<leader>q', function() vim.cmd("q!") end)
 vim.keymap.set('n', '<leader>e', function() vim.cmd("e!") end)
-vim.keymap.set('n', '<leader>a', function() vim.cmd("q") end)
+vim.keymap.set('n', '<leader>a', function() vim.cmd("bd") end)
 
 ---- screen navigation
 vim.keymap.set('n', '<leader>l', '<c-w>l')
