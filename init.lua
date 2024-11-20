@@ -282,6 +282,8 @@ vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 -- Mappings
 ---- leader desu
