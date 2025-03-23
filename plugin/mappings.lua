@@ -8,4 +8,5 @@ vim.g.mapleader = ' '
 --  Beat maps
 -- vim.keymap.set('n', '<leader>oeu', ':Vex<cr>:vert resize 40<cr><c-w>l')
 -- vim.keymap.set('n', '<leader>tm', builtin.buffers, {})
-vim.keymap.set('n', '<leader>oeu', ':NvimTreeOpen<cr>:vert resize+30<cr><c-w>l')
+vim.keymap.set('n', '<leader>oeu', ':NvimTreeOpen<cr><c-w>l')
+vim.keymap.set('n', '<leader>oee', ':NvimTreeOpen<cr>:vert resize+30<cr><c-w>l')

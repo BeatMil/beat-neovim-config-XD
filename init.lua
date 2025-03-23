@@ -2,13 +2,13 @@ print("init.lua new")
 
 
 -- Fast travel XD (gf it!)
----- plugin\telescope_mapping.lua
----- plugin\mappings.lua
----- plugin\beat.lua
----- plugin\neovide_beat.lua
----- plugin\comfy.lua
----- plugin\emoji.lua
----- after\ftplugin\gdscript.lua
+---- plugin/telescope_mapping.lua
+---- plugin/mappings.lua
+---- plugin/beat.lua
+---- plugin/neovide_beat.lua
+---- plugin/comfy.lua
+---- plugin/emoji.lua
+---- after/ftplugin/gdscript.lua
 
 
 -- Lazy package manager
@@ -86,7 +86,7 @@ local plugins = {
 			local lspconfig = require('lspconfig')
 
 			lspconfig.gdscript.setup({})
-			lspconfig.pyright.setup({})
+			lspconfig.pylsp.setup({})
 
 			--Enable (broadcasting) snippet capability for completion
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -313,8 +313,8 @@ vim.keymap.set('n', '<leader>j', '<c-w>j')
 vim.keymap.set('n', '^', '<c-^>')
 
 ---- open init.lua, source init.lua
-vim.keymap.set('n', '<leader>se', function() vim.cmd.vsplit('~/AppData/Local/nvim/init.lua')end)
-vim.keymap.set('n', '<leader>sv', function() vim.cmd.source('~/AppData/Local/nvim/init.lua')end)
+vim.keymap.set('n', '<leader>se', function() vim.cmd.vsplit('~/.config/nvim/init.lua')end)
+vim.keymap.set('n', '<leader>sv', function() vim.cmd.source('~/.config/nvim/init.lua')end)
 
 ---- Package manager binds
 -- vim.keymap.set('n', '<leader>si', function() vim.cmd('PackerInstall')end)
@@ -339,13 +339,14 @@ vim.keymap.set("n", "<leader>ue", function() harpoon.ui:toggle_quick_menu(harpoo
 vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
 vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
 vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
-vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
-vim.keymap.set("n", "<leader>uh", function() harpoon:list():select(5) end)
-vim.keymap.set("n", "<leader>ut", function() harpoon:list():select(6) end)
-vim.keymap.set("n", "<leader>un", function() harpoon:list():select(7) end)
-vim.keymap.set("n", "<leader>us", function() harpoon:list():select(8) end)
-vim.keymap.set("n", "<leader>um", function() harpoon:list():select(9) end)
-vim.keymap.set("n", "<leader>uw", function() harpoon:list():select(10) end)
+vim.keymap.set("n", "<Esc><C-h>", function() harpoon:list():select(4) end)
+vim.keymap.set("n", "<Esc><C-t>", function() harpoon:list():select(5) end)
+vim.keymap.set("n", "<Esc><C-n>", function() harpoon:list():select(6) end)
+vim.keymap.set("n", "<Esc><C-s>", function() harpoon:list():select(7) end)
+vim.keymap.set("n", "<Esc><C-m>", function() harpoon:list():select(8) end)
+vim.keymap.set("n", "<Esc><C-w>", function() harpoon:list():select(9) end)
+vim.keymap.set("n", "<Esc><C-v>", function() harpoon:list():select(10) end)
+vim.keymap.set("n", "<Esc><C-z>", function() harpoon:list():select(11) end)
 
 -- Toggle previous & next buffers stored within Harpoon list
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
