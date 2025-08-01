@@ -213,7 +213,8 @@ local plugins = {
 				},
 			}
 		}
-	}
+	},
+	{'brenoprata10/nvim-highlight-colors'}
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
@@ -222,8 +223,16 @@ require("lazy").setup(plugins, opts)
 -- Airline configs
 -- vim.g.airline_section_z = 'o(> <)o'
 -- vim.g.airline_section_c = '%t'
-require('lualine').setup({})
+require('lualine').setup({
+	options = {
+		theme ='onedark'
+	}
+})
 
+
+-- Ensure termguicolors is enabled if not already
+vim.opt.termguicolors = true
+require('nvim-highlight-colors').setup({})
 
 -- Neovim tree
 require("nvim-tree").setup()
@@ -284,7 +293,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
+-- vim.o.scrolloff = 10
 -- Mappings
 ---- leader desu
 vim.g.mapleader = ' '
@@ -314,6 +323,7 @@ vim.keymap.set('n', '^', '<c-^>')
 
 ---- open init.lua, source init.lua
 vim.keymap.set('n', '<leader>se', function() vim.cmd.vsplit('~/.config/nvim/init.lua')end)
+vim.keymap.set('n', '<leader>so', function() vim.cmd.vsplit('~/.config/i3/config')end)
 vim.keymap.set('n', '<leader>sv', function() vim.cmd.source('~/.config/nvim/init.lua')end)
 
 ---- Package manager binds
@@ -430,6 +440,9 @@ if vim.g.neovide then
 	vim.cmd('hi Normal guibg=#232936')
 	vim.g.neovide_cursor_vfx_mode = "sonicboom"
 end
+
+vim.cmd('colorscheme habamax')
+vim.cmd('hi Normal guibg=none')
 
 -- highlight yank
 vim.api.nvim_create_autocmd('TextYankPost', {

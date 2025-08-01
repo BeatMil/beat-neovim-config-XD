@@ -10,7 +10,9 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>th', builtin.find_files, {})
 vim.keymap.set('n', '<leader>tm', builtin.buffers, {})
 vim.keymap.set('n', '<leader>tt', function() vim.cmd('Telescope')end)
+-- vim.keymap.set('n', '<leader>te', builtin.diagnostics, {wrap_results=true, line_width="full"})
 
+-- lua require('telescope.builtin').diagnostics({wrap_results=true, line_width=full})
 
 -- Configuration
 require('telescope').setup{
