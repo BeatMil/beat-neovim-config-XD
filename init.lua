@@ -26,7 +26,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-	{'tpope/vim-surround'},
+	-- {'tpope/vim-surround'},
 	-- {'vim-airline/vim-airline'},
 	-- {'vim-airline/vim-airline-themes'},
 	{
@@ -34,7 +34,7 @@ local plugins = {
 		dependencies = { 'nvim-tree/nvim-web-devicons' }
 	},
 	{'tpope/vim-commentary'},
-	{'jiangmiao/auto-pairs'},
+	-- {'jiangmiao/auto-pairs'},
 	{'tpope/vim-fugitive'},
 	{
 		'nvim-telescope/telescope.nvim', tag = '0.1.6',
@@ -57,15 +57,15 @@ local plugins = {
 			require("telescope").load_extension("undo")
 		end
 	},
-	{
-		'navarasu/onedark.nvim'
-	},
-	{
-		  "folke/tokyonight.nvim",
-		  lazy = false,
-		  priority = 1000,
-		  opts = {},
-	},
+	-- {
+	-- 	'navarasu/onedark.nvim'
+	-- },
+	-- {
+	-- 	  "folke/tokyonight.nvim",
+	-- 	  lazy = false,
+	-- 	  priority = 1000,
+	-- 	  opts = {},
+	-- },
 	{
 		'ThePrimeagen/harpoon', branch = 'harpoon2',
 		dependencies = { 'nvim-lua/plenary.nvim' }
@@ -162,12 +162,13 @@ local plugins = {
 	{
 		'lewis6991/gitsigns.nvim',
 	},
-	-- ---- Better vim message
+	---- Better vim message
 	-- {
 	-- 	"folke/noice.nvim",
 	-- 	event = "VeryLazy",
 	-- 	opts = {
 	-- 		-- add any options here
+	-- 		background_colour = "#282940",
 	-- 	},
 	-- 	dependencies = {
 	-- 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -179,50 +180,32 @@ local plugins = {
 	-- 	}
 	-- },
 	{'mbbill/undotree'},
-	{
-		"folke/zen-mode.nvim",
-		opts = {
-			window = {
-				backdrop = 1.00, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
-				-- height and width can be:
-				-- * an absolute number of cells when > 1
-				-- * a percentage of the width / height of the editor when <= 1
-				-- * a function that returns the width or the height
-				width = 160, -- width of the Zen window
-				height = 1, -- height of the Zen window
-				-- by default, no options are changed for the Zen window
-				-- uncomment any of the options below, or add other vim.wo options you want to apply
-				options = {
-					-- signcolumn = "no", -- disable signcolumn
-					number = true, -- disable number column
-					relativenumber = true, -- disable relative numbers
-					cursorline = true, -- disable cursorline
-					-- cursorcolumn = false, -- disable cursor column
-					-- foldcolumn = "0", -- disable fold column
-					list = true, -- disable whitespace characters
-				},
-			},
-			plugins = {
-				options = {
-					enabled = true,
-					-- ruler = false, -- disables the ruler text in the cmd line area
-					-- showcmd = false, -- disables the command in the last line of the screen
-					-- you may turn on/off statusline in zen mode by setting 'laststatus' 
-					-- statusline will be shown only if 'laststatus' == 3
-					laststatus = 3, -- turn off the statusline in zen mode
-				},
-			}
-		}
+	{'brenoprata10/nvim-highlight-colors'},
+	{'altermo/ultimate-autopair.nvim',
+		event={'InsertEnter','CmdlineEnter'},
+		branch='v0.6', --recommended as each new version will have breaking changes
+		opts={
+			--Config goes here
+		},
 	},
-	{'brenoprata10/nvim-highlight-colors'}
+	{
+		"kylechui/nvim-surround",
+		version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
+		end
+	}
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
 
 
 -- Airline configs
--- vim.g.airline_section_z = 'o(> <)o'
--- vim.g.airline_section_c = '%t'
+vim.g.airline_section_z = 'o(> <)o'
+vim.g.airline_section_c = '%t'
 require('lualine').setup({
 	options = {
 		theme ='onedark'
@@ -240,12 +223,12 @@ require("nvim-tree").setup()
 
 -- Customized
 ---- set colorscheme
-require('onedark').setup {
-	--    'dark', 'darker', 'cool', 'deep', 'warm', 'warmer'
-	style = 'cool',
-	transparent = true,
-}
-require('onedark').load()
+-- require('onedark').setup {
+-- 	--    'dark', 'darker', 'cool', 'deep', 'warm', 'warmer'
+-- 	style = 'cool',
+-- 	transparent = true,
+-- }
+-- require('onedark').load()
 
 require('gitsigns').setup()
 
@@ -457,3 +440,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Disable Codium
 -- vim.cmd("CodeiumDisable")
+
+
+-- Yank-ring: store yanked text in registers 1-9.
+vim.api.nvim_create_autocmd('TextYankPost', {
+	callback = function()
+		if vim.v.event.operator == 'y' then
+			for i = 9, 1, -1 do -- Shift all numbered registers.
+				vim.fn.setreg(tostring(i), vim.fn.getreg(tostring(i - 1)))
+			end
+		end
+	end,
+})
