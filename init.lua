@@ -197,10 +197,14 @@ local plugins = {
 				-- Configuration here, or leave empty to use defaults
 			})
 		end
-	}
+	},
+	{'nvim-mini/mini.ai'},
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
+
+-- mini ai enable
+require('mini.ai').setup()
 
 
 -- Airline configs
