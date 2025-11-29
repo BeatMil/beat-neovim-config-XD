@@ -1,5 +1,7 @@
 print("init.lua new")
 
+-- The `require('lspconfig')` "framework" is deprecated, use vim.lsp.config (see :help lspconfig-nvim-0.11) instead.
+
 
 -- Fast travel XD (gf it!)
 ---- plugin/telescope_mapping.lua
@@ -83,30 +85,32 @@ local plugins = {
 	{
 		'neovim/nvim-lspconfig',
 		config=function()
-			local lspconfig = require('lspconfig')
+			-- local lspconfig = require('lspconfig')
 
-			lspconfig.gdscript.setup({})
-			lspconfig.pylsp.setup({})
+			-- lspconfig.gdscript.setup({})
+			vim.lsp.enable('gdscript')
+			vim.lsp.enable({'lua_ls', 'pyright'})
+			-- lspconfig.pylsp.setup({})
 
 			--Enable (broadcasting) snippet capability for completion
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities.textDocument.completion.completionItem.snippetSupport = true
-			lspconfig.html.setup({
-				capabilities = capabilities,
-			})
+			-- lspconfig.html.setup({
+			-- 	capabilities = capabilities,
+			-- })
 
-			lspconfig.vimls.setup({})
-			lspconfig.lua_ls.setup({
-				settings = {
-					Lua = {
-						diagnostics = {
-							-- Get the language server to recognize the `vim` global
-							globals = {'vim'},
-						},
-					},
-				},
-			})
-			lspconfig.emmet_ls.setup({})
+			-- lspconfig.vimls.setup({})
+			-- lspconfig.lua_ls.setup({
+			-- 	settings = {
+			-- 		Lua = {
+			-- 			diagnostics = {
+			-- 				-- Get the language server to recognize the `vim` global
+			-- 				globals = {'vim'},
+			-- 			},
+			-- 		},
+			-- 	},
+			-- })
+			-- lspconfig.emmet_ls.setup({})
 		end
 	},
 
@@ -199,6 +203,8 @@ local plugins = {
 		end
 	},
 	{'nvim-mini/mini.ai'},
+	-- light theme baby
+	{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...}
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
