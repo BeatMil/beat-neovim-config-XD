@@ -204,7 +204,13 @@ local plugins = {
 	},
 	{'nvim-mini/mini.ai'},
 	-- light theme baby
-	{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...}
+	{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
+	{ "karb94/neoscroll.nvim", opts =
+		{
+			 duration_multiplier = 0.5,
+			 easing = 'cubic',
+		},
+	}
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
