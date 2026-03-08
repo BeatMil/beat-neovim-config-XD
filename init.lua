@@ -1,5 +1,4 @@
 print("init.lua new")
-
 -- The `require('lspconfig')` "framework" is deprecated, use vim.lsp.config (see :help lspconfig-nvim-0.11) instead.
 
 
@@ -35,7 +34,6 @@ local plugins = {
 		'nvim-lualine/lualine.nvim',
 		dependencies = { 'nvim-tree/nvim-web-devicons' }
 	},
-	{'tpope/vim-commentary'},
 	-- {'jiangmiao/auto-pairs'},
 	{'tpope/vim-fugitive'},
 	{
@@ -89,6 +87,7 @@ local plugins = {
 
 			-- lspconfig.gdscript.setup({})
 			vim.lsp.enable('gdscript')
+			vim.lsp.enable('dartls')
 			vim.lsp.enable({'lua_ls', 'pyright'})
 			-- lspconfig.pylsp.setup({})
 
@@ -183,6 +182,7 @@ local plugins = {
 	-- 		"rcarriga/nvim-notify",
 	-- 	}
 	-- },
+	{'nvim-mini/mini.ai'}, -- for auto detect highlight brackets
 	{'mbbill/undotree'},
 	{'brenoprata10/nvim-highlight-colors'},
 	{'altermo/ultimate-autopair.nvim',
@@ -202,18 +202,24 @@ local plugins = {
 			})
 		end
 	},
-	{'nvim-mini/mini.ai'},
+	{
+		'numToStr/Comment.nvim',
+		opts = {
+			-- add any options here
+		}
+	},
 	-- light theme baby
 	{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
-	{ "karb94/neoscroll.nvim", opts =
-		{
-			 duration_multiplier = 0.5,
-			 easing = 'cubic',
-		},
-	}
+  { "karb94/neoscroll.nvim", opts =
+    {
+      duration_multiplier = 0.5,
+      easing = 'cubic',
+    },
+  }
 }
 local opts = {}
 require("lazy").setup(plugins, opts)
+
 
 -- mini ai enable
 require('mini.ai').setup()
@@ -258,7 +264,7 @@ vim.g.airline_theme = 'onedark'
 
 
 -- Mason Setup
-require("mason").setup()
+require("mason").setup({})
 require("mason-lspconfig").setup()
 
 
@@ -279,8 +285,9 @@ vim.opt.backup = false
 vim.opt.foldmethod = 'indent'
 vim.opt.signcolumn = 'yes'
 vim.opt.colorcolumn = '80'
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
 vim.opt.mouse = 'a'
 vim.opt.undofile = true
 vim.opt.updatetime = 250
@@ -440,7 +447,7 @@ if vim.g.neovide then
 	vim.g.neovide_cursor_vfx_mode = "sonicboom"
 end
 
-vim.cmd('colorscheme habamax')
+vim.cmd('colorscheme gruvbox')
 vim.cmd('hi Normal guibg=none')
 
 -- highlight yank
